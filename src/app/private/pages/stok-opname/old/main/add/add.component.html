@@ -1,0 +1,175 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Stok Opname'" [items]="[]" [active_item]="'Stok Opname'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Buat Baru Stok Opname</h3>
+
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button type="button" [routerLink]="['../view']"  class="btn btn-kembali btn-lg mb-3"><i class="fas fa-arrow-left"></i> Kembali</button>
+        <!-- <button type="button" [routerLink]="['../add']"  class="btn btn-tambah btn-lg mb-3"><i class="fas fa-plus"></i> Mulai</button> -->
+        <div class="card">
+          <div class="header">
+            <h2><strong></strong> </h2>
+          </div>
+          <div class="body">
+
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link" [class.active]="tabPane[0]" (click)="ShowTabPane(0)" type="button" >
+                  Belum diperiksa
+
+                </button>
+                <button class="nav-link" [class.active]="tabPane[1]" (click)="ShowTabPane(1)" type="button" >
+                  Sudah diperiksa
+                </button>
+              </div>
+            </nav>
+            <div class="tab-content">
+              <div class="tab-pane fade" [class.active]="tabPane[0]" [class.show]="tabPane[0]">
+                <label class="my-3">Belum diperiksa 1.062 barang</label>
+                <table class="table table-sm table-striped table-bordered table-sm" width="100%">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Barang</th>
+                      <th>Jumlah Stok</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Altergen (CTM)</td>
+                      <td>2.000 tablet</td>
+                      <td>
+                        <button class="btn btn-info" type="button" (click)="btnOpenModal()">Pilih</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane fade" [class.active]="tabPane[1]" [class.show]="tabPane[1]">
+                <label class="my-3">Sudah diperiksa 12 barang</label>
+
+                <table class="table table-sm table-striped table-bordered table-sm" width="100%">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Barang</th>
+                      <th>Jumlah Stok</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Altergen (CTM)</td>
+                      <td>2.500 tablet</td>
+                      <td>
+                        <button class="btn btn-info" type="button" (click)="btnOpenModal()">Pilih</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+
+
+            <div class="text-center">
+              <button class="btn btn-lg btn-info">Simpan Sementara</button>
+              <button class="btn btn-lg btn-simpan">Selesaikan stok opname</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<jw-modal id="modalFormContent">
+  <div class="modal-header" style="display: block !important;">
+    <h4 class="modal-title text-center">ALLOPURINOL Tab 100mg. DEXA</h4>
+  </div>
+  <div class="modal-body">
+
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Kemasan</th>
+          <th class="text-center">Jumlah</th>
+          <th>Stok</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tablet</td>
+          <td>
+
+            <div class="row">
+              <div class="col-sm-3 offset-sm-3 text-end">
+                1 x
+              </div>
+              <div class="col-sm-4 ">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+          </td>
+          <td> = 2</td>
+        </tr>
+        <tr>
+          <td>Strip</td>
+          <td>
+            <div class="row">
+              <div class="col-sm-3 offset-sm-3 text-end">
+                10 x
+              </div>
+              <div class="col-sm-4 ">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+          </td>
+          <td> = 2</td>
+        </tr>
+        <tr>
+          <td>Dus</td>
+          <td>
+            <div class="row">
+              <div class="col-sm-3 offset-sm-3 text-end">
+                10 x 10 x
+              </div>
+              <div class="col-sm-4 ">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+          </td>
+          <td> = 2</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div class="col-sm-10">
+        <strong>Total stok</strong> (dalam tablet)
+      </div>
+      <div class="col-sm-2 text-center">6</div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-kembali" type="button"  (click)="btnCloseModal()">Batal</button>
+    <button class="btn btn-simpan" type="button"  color="primary">Simpan</button>
+  </div>
+
+</jw-modal>

@@ -1,0 +1,55 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Manajemen Klinik'" [items]="[]" [active_item]="'Informasi Klinik'"></app-breadcrumb>
+    </div>
+    <h3>Untuk Riset</h3>
+
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+
+        <div class="card">
+
+          <div class="header">
+          </div>
+          <div class="body">
+
+            <ng-select [items]="people$ | async"
+                      bindLabel="name"
+                      [addTag]="false"
+                      [multiple]="false"
+                      [hideSelected]="false"
+                      #inputText
+
+                      [loading]="peopleLoading"
+                      (search)="searchList($event)"
+                      [typeahead]="peopleInput$"
+                      [(ngModel)]="selectedPersons">
+            </ng-select>
+
+            <!-- <ng-select
+                    style="flex: 1 1 auto;"
+                    [virtualScroll]="true"
+                    [items]="listDesaKtp"
+                    bindLabel="name"
+                    bindValue="id"
+                    placeholder="Pilih Desa"
+                    [searchable]="true"
+                    [(ngModel)]="idDesaKtp"
+                    [ngModelOptions]="{standalone: true}"
+                    [clearable]="true"
+                    (search)="searchListDesaKtp($event)"
+                    (scrollToEnd)="scollEndDesaKtp()"
+                    (open)="openListDesaKtp()"
+                  ></ng-select> -->
+
+
+            <button class="btn btn-lg btn-primary m-5" type="button" (click)="CheckBtn()">Check</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

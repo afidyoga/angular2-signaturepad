@@ -1,0 +1,180 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Manajemen Menu'" [items]="[]" [active_item]="'Menu Right'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Menu Right</h3>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Form Pencarian</strong></h2>
+          </div>
+          <div class="body">
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label fw-bold text-end">Nama Menu</label>
+              <div class="col-sm-7">
+                <!-- <select name="" id="" class="form-select" #id_select_menu>
+                  <option value="">Pilih Semua Menu</option>
+                  <option *ngFor="let item of listMenuExistRight" value="{{ item.id_menu }}">{{ "Level "+item.level_menu+" - "+item.nama_menu }}</option>
+                </select> -->
+					<ng-select 
+						style="flex: 1 1 auto;" 
+					 	[(ngModel)]="id_select_menu"
+						name="id_select_menu"  
+						bindLabel="level_menu"
+                        bindValue="id_menu" 
+						placeholder="Pilih Menu"
+						[searchable]="true" 
+						[clearable]="true"
+						(search)="prosesSelectMenu($event, 'search')"
+						(open)="prosesSelectMenu($event, 'open')"
+						>
+                        <ng-option *ngFor="let item of listMenuExistRight; let i=index" [value]="item">{{ "Level "+item.level_menu+" - "+item.nama_menu }}</ng-option>
+                    </ng-select>
+              	</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-sm-8 offset-md-2">
+                <button class="btn btn-tampilkan-cari" (click)="reLoadData()"><i class="fa fa-search"></i> Cari</button>
+                <!-- <button class="btn btn-info"> <i class="fa fa-sync"></i> Refresh</button> -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <button type="button" *ngIf="btnAdd" [routerLink]="['../add']" class="btn btn-tambah btn-lg mb-4"><i class="fas fa-plus"></i> Tambah Baru</button>
+
+        <div class="card">
+          <div class="header">
+            <h2><strong>Menu Right</strong> </h2>
+          </div>
+          <div class="body">
+
+            <table class="table table-sm table-striped table-bordered table-sm" datatable [dtOptions]="dtOptions" width="100%">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Status Right</th>
+                  <th>Status RW</th>
+                  <th>Nama Menu</th>
+                  <th>Action Code</th>
+                  <th>Status Aktif</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+
+            <ng-template #formContent let-modal>
+              <form [formGroup]="formTambah" (submit)="SubmitForm()">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">{{ titleModal }}</h4>
+                </div>
+                <div class="modal-body">
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Nama Menu Right</label>
+                    <div class="col-sm-9">
+                      <input type="text"
+                      [class.border-danger]="formTambah.controls.nama_menu_right.hasError('required')"
+                      formControlName="nama_menu_right"
+                      class="form-control">
+                      <div
+                      class="form-text text-danger"
+                      *ngIf="formTambah.controls.nama_menu_right.hasError('required')">
+                        Nama menu right tidak boleh kosong
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Nama Menu</label>
+                    <div class="col-sm-9">
+                      <select formControlName="id_menu"
+                      [class.border-danger]="formTambah.controls.id_menu.hasError('required')"
+                      class="form-select">
+                        <option value="">Pilih nama menu</option>
+                        <option *ngFor="let item of listNamaMenu" value="{{ item.id_menu }}">{{ item.nama_menu }} - level {{item.level_menu}}</option>
+                      </select>
+                      <div
+                      class="form-text text-danger"
+                      *ngIf="formTambah.controls.id_menu.hasError('required')">
+                        Nama menu tidak boleh kosong
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Status RW</label>
+                    <div class="col-sm-9">
+                      <select formControlName="status_rw"
+                      [class.border-danger]="formTambah.controls.status_rw.hasError('required')"
+                      class="form-select">
+                        <option value="">Pilih status RW</option>
+                        <option value="R">Read</option>
+                        <option value="W">Write</option>
+                        <option value="RW">Read / Write</option>
+                      </select>
+                      <div
+                      class="form-text text-danger"
+                      *ngIf="formTambah.controls.status_rw.hasError('required')">
+                        Status RW tidak boleh kosong
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="errorMessage != null" class="alert alert-danger" role="alert">
+                    {{ errorMessage.metaData.message }}
+                    <ul *ngFor="let item of errorMessage.response" >
+                      <li>{{ item.field }} : {{ item.message }}</li>
+                    </ul>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Status Aktif</label>
+                    <div class="col-sm-9">
+
+                      <input type="radio" class="btn-check" formControlName="status_aktif"  id="success-outlined" value="1" autocomplete="off" checked>
+                      <label class="btn btn-outline-success" for="success-outlined">Aktif</label>
+                      <input type="radio" class="btn-check" formControlName="status_aktif"  id="danger-outlined" value="0" autocomplete="off">
+                      <label class="btn btn-outline-danger" for="danger-outlined">Tidak Aktif</label>
+
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-kembali" type="button" [disabled]="isLoadingButton" (click)="modal.close()">Batal</button>
+                  <button class="btn btn-simpan" type="submit" [disabled]="isLoadingButton" color="primary">
+                    <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+                    Simpan
+                  </button>
+                </div>
+              </form>
+            </ng-template>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

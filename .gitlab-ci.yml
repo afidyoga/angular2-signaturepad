@@ -1,0 +1,27 @@
+image: totorajo/gitlab-ci:v1
+
+stages:
+    - build
+    - deploy
+
+
+deploy_to_staging:
+    stage: build
+
+    before_script:
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y)'
+        - mkdir -p ~/.ssh
+        - eval $(ssh-agent -s)
+        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+        - apt-get update
+        - apt-get install sudo
+        - which rsync || ( apt-get update -y && apt-get install rsync -y )
+
+    script:
+        - ssh-add <(echo "$PRIVATE_KEY_STAGING")
+        - rsync -rvzD -e "ssh -o StrictHostKeyChecking=no" --exclude={.git,README.md,CHANGELOG,.idea,.gitlab-ci.yml,.gitignore,vendor,dev-note,cicd,node_modules} ./ docker@103.226.138.209:/home/docker/staging/cloudcare/frontend-pwa
+              
+    only:
+         - staging
+ 

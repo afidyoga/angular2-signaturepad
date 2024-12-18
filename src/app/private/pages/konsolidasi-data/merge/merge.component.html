@@ -1,0 +1,202 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <app-breadcrumb [title]="'Konsolidasi Data'" [items]="['Merge Data Pasien']" [active_item]=""></app-breadcrumb>
+        </div>
+        <h3 class="text-center">Merge Data Pasien</h3>
+
+
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+                       <table class="table table-striped table-bordered table-sm">
+                            <tr>
+                                <td>No RM : -</td>
+                                <td rowspan="6" class="text-center">
+                                    <h2>
+                                        <i class="fas fa-chevrons-right"></i> Merge To <i class="fas fa-chevrons-right"></i>
+                                    </h2>
+                                </td>
+                                <td>No RM : -</td>
+                            </tr>
+                            <tr>
+                                <td>No BPJS : -</td>
+                                <td>No BPJS : -</td>
+                            </tr>
+                            <tr>
+                                <td>NIK : -</td>
+                                <td>NIK : -</td>
+                            </tr>
+                            <tr>
+                                <td>Nama : -</td>
+                                <td>Nama : -</td>
+                            </tr>
+                            <tr>
+                                <td>TTL : -</td>
+                                <td>TTL : -</td>
+                            </tr>
+                            <tr>
+                                <td>No Telp : -</td>
+                                <td>No Telp : -</td>
+                            </tr>
+                       </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="body">
+                        <mat-stepper [linear]="isLinear" #stepper>
+                            <mat-step [stepControl]="firstFormGroup" label="Antrian">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-sm" width="100%" >
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Tanggal Kunjungan </th>
+                                                <th>Jenis Antri</th>
+                                                <th>Sesi Antrian</th>
+                                                <th>No Antrian</th>
+                                                <th>Cek Kesehatan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                                <td>1</td>
+                                                <td>08/08/2022</td>
+                                                <td>Reguler</td>
+                                                <td>2</td>
+                                                <td>20</td>
+                                                <td>Sudah</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="alert alert-success" *ngIf="merge[0]">
+                                        <strong>Success!</strong> Merge berhasil
+                                    </div>
+                                    <div class=" pull-right mt-2">
+                                        <button class="btn btn-primary btn-lg" (click)="merged(0)" *ngIf="!merge[0]">Merge</button>
+                                        <button class="btn btn-success btn-lg" matStepperNext *ngIf="merge[0]">Selanjutnya</button>
+                                        <button class="btn btn-danger btn-lg">Keluar</button>
+                                    </div>
+                                </div>
+                            </mat-step>
+                            <!-- #docregion label -->
+                            <mat-step [stepControl]="secondFormGroup" label="Perawat">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-sm" width="100%" >
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Alergi</th>
+                                                <th>Catatan Khusus</th>
+                                                <th>Hambatan</th>
+                                                <th>Keluhan</th>
+                                                <th>Sistole</th>
+                                                <th>Diastol</th>
+                                                <th>Suhu badan</th>
+                                                <th>RR</th>
+                                                <th>HR</th> 
+                                                <th>BB</th>
+                                                <th>TB</th> 
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                                <td>1</td>
+                                                <td>Tida ada</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Batukberdahak</td>
+                                                <td>100</td>
+                                                <td>100</td>
+                                                <td>30</td>
+                                                <td>20</td>
+                                                <td>80</td>
+                                                <td>80</td>
+                                                <td>160</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="alert alert-success" *ngIf="merge[1]">
+                                        <strong>Success!</strong> Merge berhasil
+                                    </div>
+                                    <div class=" pull-right mt-2">
+                                        <button class="btn btn-primary btn-lg" (click)="merged(1)" *ngIf="!merge[1]">Merge</button>
+                                        <button class="btn btn-success btn-lg" matStepperNext *ngIf="merge[1]">Selanjutnya</button>
+                                        <button class="btn btn-danger btn-lg">Keluar</button>
+                                    </div>
+                                </div>
+                            </mat-step>
+                            <mat-step [stepControl]="threeFormGroup" label="Dokter">
+                            <!-- #enddocregion label -->
+                               <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-sm" width="100%" >
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Dokter</th>
+                                                <th>Kajian Obyectif</th>
+                                                <th>Assesment</th>
+                                                <th>Planning</th>
+                                                <th>Tindakan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                                <td>1</td>
+                                                <td>dr.cloudcare</td>
+                                                <td>nyeri</td>
+                                                <td>1.TENSION HEADCARE(g44.2)</td>
+                                                <td>Edukasi pola makan</td>
+                                                <td>resep</td>
+                                               
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="alert alert-success" *ngIf="merge[2]">
+                                        <strong>Success!</strong> Merge berhasil
+                                    </div>
+                                    <div class=" pull-right mt-2">
+                                        <button class="btn btn-primary btn-lg" (click)="merged(2)" *ngIf="!merge[2]">Merge</button>
+                                        <button class="btn btn-success btn-lg" matStepperNext *ngIf="merge[2]">Selanjutnya</button>
+                                        <button class="btn btn-danger btn-lg">Keluar</button>
+                                    </div>
+                                </div>
+                            </mat-step>
+                            <mat-step [stepControl]="forFormGroup" label="Farmasi">
+                               <div class="table-responsive" >
+                                    <table class="table table-striped table-bordered table-sm" width="100%" >
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Obat</th>
+                                                <th>Jumlah</th>
+                                                <th>Signa</th>
+                                                <th>Hari</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                                <td>1</td>
+                                                <td>EPSONAL</td>
+                                                <td>15</td>
+                                                <td>2x1</td>
+                                                <td>8</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                       
+                                    <div class=" pull-right mt-2">
+                                        <button class="btn btn-success btn-lg" (click)="selesai()">Selesai</button>
+                                    </div>
+                                </div>
+                            </mat-step>
+                        </mat-stepper>
+                        
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,168 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Manajemen Klinik'" [items]="[]" [active_item]="'Daftar Poliklinik'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Daftar Poliklinik</h3>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- (click)="FormModalOpen(formContent)" -->
+        <button type="button" *ngIf="btnAdd"  (click)="FormModalOpen()" class="btn btn-tambah btn-lg"><i class="fas fa-plus-circle"></i> Tambah Poliklinik</button>
+        <br>
+        <br>
+        <div class="card">
+          <div class="header">
+            <h2><strong>Daftar Poliklinik</strong> </h2>
+          </div>
+          <div class="body">
+
+            <div class="table-responsive">
+              <table class="table table-sm table-striped table-bordered table-sm" width="100%" datatable [dtOptions]="dtOptions">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Klinik</th>
+                    <th>Nama Poli</th>
+                    <th>No Reg Poliklinik</th>
+                    <th>Nama Poliklinik</th>
+                    <th>Alamat Poliklinik</th>
+                    <th>Status Aktif</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+
+          <jw-modal  id="modalForm">
+            <!-- <div class="modal-dialog">
+              <div class="modal-content"> -->
+
+                <!-- <div class="modal-header">
+                  <h5 class="modal-title">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div> -->
+
+                <!-- <ng-template #formContent let-modal> -->
+                <form [formGroup]="formTambah" (submit)="SubmitForm()">
+                  <div class="modal-header">
+                    <h5 class="modal-title" >{{ titleModal }}</h5>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="mb-3 row">
+                      <label class="col-sm-3 col-form-label fw-bold">Klinik *</label>
+                      <div class="col-sm-9">
+                        <select formControlName="id_klinik"
+                        [class.border-danger]="formTambah.controls.id_klinik.hasError('required') && submitted"
+                        class="form-select">
+                          <option value="">Pilih Klinik</option>
+                          <option *ngFor="let item of listKlinik" value="{{ item.id_klinik }}">{{ item.nama_klinik }}</option>
+                        </select>
+                        <div
+                        class="form-text text-danger"
+                        *ngIf="formTambah.controls.id_klinik.hasError('required') && submitted">
+                          Nama klinik tidak boleh kosong
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                      <label class="col-sm-3 col-form-label fw-bold">Poli *</label>
+                      <div class="col-sm-9">
+                        <select formControlName="id_master_poli"
+                        [class.border-danger]="formTambah.controls.id_master_poli.hasError('required') && submitted"
+                        class="form-select">
+                          <option value="">Pilih Poli</option>
+                          <option *ngFor="let item of listPoli" value="{{ item.id_master_poli }}">{{ item.nama_poli }}</option>
+                        </select>
+                        <div
+                        class="form-text text-danger"
+                        *ngIf="formTambah.controls.id_master_poli.hasError('required') && submitted">
+                          Nama poli tidak boleh kosong
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- <div class="mb-3 row">
+                      <label class="col-sm-3 col-form-label fw-bold">No Reg. Poliklinik</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" placeholder="No Reg. Poliklinik">
+                      </div>
+                    </div> -->
+
+                    <div class="mb-3 row">
+                      <label class="col-sm-3 col-form-label fw-bold">Nama Poliklinik *</label>
+                      <div class="col-sm-9">
+                        <input type="text"
+                        formControlName="nama_poliklinik"
+                        [class.border-danger]="formTambah.controls.nama_poliklinik.hasError('required') && submitted"
+                        class="form-control" placeholder="Nama Poliklinik">
+                        <div
+                        class="form-text text-danger"
+                        *ngIf="formTambah.controls.nama_poliklinik.hasError('required') && submitted">
+                          Nama poliklinik tidak boleh kosong
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                      <label class="col-sm-3 col-form-label fw-bold">Alamat Poliklinik *</label>
+                      <div class="col-sm-9">
+                        <textarea cols="3" rows="3"
+                        formControlName="alamat_poliklinik"
+                        class="form-control"
+                        [class.border-danger]="formTambah.controls.alamat_poliklinik.hasError('required') && submitted"
+                        placeholder="Alamat Poliklinik"></textarea>
+                        <div
+                        class="form-text text-danger"
+                        *ngIf="formTambah.controls.alamat_poliklinik.hasError('required') && submitted">
+                          Alamat poliklinik tidak boleh kosong
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="mb-3 row">
+                      <label class="col-sm-3 col-form-label fw-bold">Status Aktif</label>
+                      <div class="col-sm-9">
+
+							<div class="form-check form-switch">
+								<input class="form-check-input" type="checkbox" formControlName="status_aktif" id="status_aktif" name="darkmode" (click)="setStatus(this.formTambah.value.status_aktif == 1 ? 0 : 1)" [checked]="formTambah.value.status_aktif==1?true:false">
+								<label class="form-check-label" for="status_aktif">{{formTambah.value.status_aktif?'Aktif':'Tidak Aktif'}}</label>
+							</div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-kembali" type="button" [disabled]="isLoadingButton"  (click)="hideModal()">Batal</button>
+                    <button class="btn btn-simpan" type="submit" [disabled]="isLoadingButton">
+                      <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-save': !isLoadingButton}"></i>
+                      Simpan
+                    </button>
+                  </div>
+                </form>
+              <!-- </ng-template> -->
+              <!-- </div>
+            </div> -->
+          </jw-modal>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

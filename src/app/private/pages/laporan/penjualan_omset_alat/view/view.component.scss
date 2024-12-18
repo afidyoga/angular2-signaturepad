@@ -1,0 +1,30 @@
+.card-box{
+    min-height: 150px;
+}
+.card-box .card-body{
+    padding-top: 50px;
+    padding-bottom: 40px;
+}
+.box-title{
+    z-index: 999999;
+    font-size: 20px;
+    padding-left: 20px;
+    font-weight: bold;
+}
+
+.box-icon{
+    position:absolute;
+    left: 17vw;
+    top: 50px;
+    font-size: 70px;
+    opacity: 0.3;
+}
+
+@media only screen and (max-width: 768px) {
+    .box-icon{
+        display: none;
+    }
+    .box-title{
+        text-align: center;
+    }
+}
