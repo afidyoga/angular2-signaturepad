@@ -8,6 +8,7 @@ Angular CLI: 13.3.11
 ## Installation
 yarn install
 npm install -g @angular/cli@13.3.11
+npm install angular2-signaturepad signature_pad --save
 
 ## Build
 npm run build-staging:ssr
